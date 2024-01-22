@@ -21,10 +21,10 @@ node {
     }
     stage('Deploy') {
             archiveArtifacts 'target/submission-elsan-1.0-SNAPSHOT.jar'
-            docker.build("my-app:latest");
+            docker.build("submission-elsan:latest");
             sh "ssh-keyscan -H 13.250.104.134 >> ~/.ssh/known_hosts"
             sh "/usr/bin/scp -i /var/jenkins_home/notes-implementasi-cicd.pem /var/jenkins_home/workspace/submission-cicd-pipeline-elsan-pentanugraha/target/submission-elsan-1.0-SNAPSHOT.jar  elsan@13.250.104.134:/home/elsan/submission-elsan-1.0-SNAPSHOT.jar"
-            sh 'docker run --rm my-app'
+            sh 'docker run --rm submission-elsan'
             sleep 60
     }
 }
